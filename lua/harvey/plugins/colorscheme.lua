@@ -1,11 +1,10 @@
 return {
-  "Mofiqul/vscode.nvim",
-  lazy = false,
+  "rockyzhang24/arctic.nvim",
+  dependencies = { "rktjmp/lush.nvim" },
+  name = "arctic",
+  branch = "main",
   priority = 1000,
   config = function()
-    vim.o.background = "dark"
-    require("vscode").setup({})
-    require("vscode").load("dark")
-  end,
+    vim.cmd("colorscheme arctic")
+  end
 }
-
