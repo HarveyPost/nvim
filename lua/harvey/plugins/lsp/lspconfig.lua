@@ -10,6 +10,28 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+    -- Global filter: drop only "line too long" diagnostics (any server/source).
+    do
+      local orig_publish = vim.lsp.handlers["textDocument/publishDiagnostics"]
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, cfg)
+        if result and result.diagnostics then
+          result = vim.deepcopy(result)
+          result.diagnostics = vim.tbl_filter(function(d)
+            local code = d.code
+            local msg = d.message or ""
+            if code == "E501" or code == "line-too-long" or code == "reportLineTooLong" then
+              return false
+            end
+            if msg:match("[Ll]ine%s+too%s+long") then
+              return false
+            end
+            return true
+          end, result.diagnostics)
+        end
+        return orig_publish(err, result, ctx, cfg)
+      end
+    end
+
     -- Keymaps set when an LSP client attaches.
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
