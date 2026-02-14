@@ -13,7 +13,7 @@ vim.opt.termguicolors = true
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.cursorline = true
 vim.opt.relativenumber = true
-vim.opt.termguicolors = true
+vim.opt.termguicolors = false
 vim.o.winborder = "single"
 vim.opt.clipboard = "unnamedplus"
 

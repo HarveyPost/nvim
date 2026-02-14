@@ -1,10 +1,7 @@
 return {
-  "rockyzhang24/arctic.nvim",
-  dependencies = { "rktjmp/lush.nvim" },
-  name = "arctic",
-  branch = "main",
+  "EdenEast/nightfox.nvim",
   priority = 1000,
   config = function()
-    vim.cmd("colorscheme arctic")
+    vim.cmd.colorscheme("carbonfox")
   end
 }
